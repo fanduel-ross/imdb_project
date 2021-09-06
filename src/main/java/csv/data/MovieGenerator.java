@@ -4,6 +4,7 @@ import com.opencsv.bean.CsvToBeanBuilder;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.ArrayList;
@@ -13,7 +14,7 @@ import java.util.List;
 public class MovieGenerator {
     private static final Logger logger = LogManager.getLogger(MovieGenerator.class);
 
-    public List<MovieDto> generate(String fileName) {
+    public List<MovieDto> generate(File fileName) {
         logger.info("Application Start");
         List<MovieDto> movies = new ArrayList<>();
 

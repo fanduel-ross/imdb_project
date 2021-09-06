@@ -1,5 +1,7 @@
 package csv.data;
 
+import java.util.Arrays;
+
 public class FormattedMovieDto {
     private final int id;
     private final String title;
@@ -69,5 +71,22 @@ public class FormattedMovieDto {
 
     public String getCountry() {
         return country;
+    }
+
+    @Override
+    public String toString() {
+        return "FormattedMovieDto{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", imdbRating=" + imdbRating +
+                ", duration=" + duration +
+                ", rating='" + rating + '\'' +
+                ", budget=" + budget +
+                ", genres=" + Arrays.toString(genres) +
+                ", director='" + director + '\'' +
+                ", actors=" + Arrays.toString(actors) +
+                ", language='" + language + '\'' +
+                ", country='" + country + '\'' +
+                '}';
     }
 }
