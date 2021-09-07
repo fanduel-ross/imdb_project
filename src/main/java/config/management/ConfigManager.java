@@ -28,5 +28,7 @@ public class ConfigManager {
         return config.getProperty("movie_title_file_location");
     }
 
-
+    public static String testFileLocation(){
+        return config.getProperty("test_file_location");
+    }
 }

@@ -86,7 +86,7 @@ public class MovieDto {
         return genres.split("\\|");
     }
 
-    public int getGross() {
+    public long getGross() {
         return gross;
     }
 

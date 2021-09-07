@@ -40,22 +40,27 @@ public class TestMovieGenerator {
     @Test
     public void generatesCorrectScore(){
         assertEquals( 7.9, firstMovie.getScore());
+        assertEquals( 6.6, lastMovie.getScore());
     }
 
     @Test
     public void generatesCorrectYear(){
         assertEquals( 2009, firstMovie.getYear());
+        assertEquals( 2004, lastMovie.getYear());
     }
 
     @Test
     public void generatesCorrectRating(){
         assertEquals( "PG-13", firstMovie.getRating());
+        assertEquals( "PG", lastMovie.getRating());
     }
 
     @Test
     public void generatesCorrectGenres(){
-        String[] expected = {"Action", "Adventure", "Fantasy", "Sci-Fi"};
-        assertArrayEquals( expected, firstMovie.getGenres());
+        String[] firstExpected = {"Action", "Adventure", "Fantasy", "Sci-Fi"};
+        String[] lastExpected = {"Documentary"};
+        assertArrayEquals( firstExpected, firstMovie.getGenres());
+        assertArrayEquals( lastExpected,lastMovie.getGenres());
     }
 
 

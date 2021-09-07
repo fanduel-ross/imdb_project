@@ -6,8 +6,7 @@ import csv.data.FormattedMovieDto;
 import csv.data.Movie;
 import csv.data.MovieDto;
 import csv.data.MovieGenerator;
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
+
 
 import java.io.File;
 import java.io.FileWriter;
@@ -16,45 +15,56 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RetrieveData {
-    private static final Logger logger = LogManager.getLogger(RetrieveData.class);
+    private static final List<FormattedMovieDto> movieList = new ArrayList<>();
     private static final File csvFile = new File(ConfigManager.imdbFileLocation());
     private static final MovieGenerator movieGenerator = new MovieGenerator();
-    private static final  List<MovieDto> movies = movieGenerator.generate(csvFile);
+    private static final List<MovieDto> movies = movieGenerator.generate(csvFile);
     private static final List<FormattedMovieDto> formattedMovies = new ArrayList<>();
     private static final Movie transformer = new Movie();
-    private static File outputFile;
-    private static final ObjectMapper mapper = new ObjectMapper();
 
-
-    public List<MovieDto> writeMoviesToFile() {
-
-        movies.forEach(m -> formattedMovies.add(transformer.transform(m)));
-
-        outputFile = new File(ConfigManager.outputFileLocation());
+    public void csvManager(String fileLocation, boolean isNewList) {
+        ObjectMapper mapper = new ObjectMapper();
+        File outputFile = new File(fileLocation);
         FileWriter writer;
 
-        try {
-            writer = new FileWriter(outputFile);
-            String json = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(formattedMovies);
-            writer.write(json);
-            writer.close();
-        } catch (
-                IOException e) {
-            e.printStackTrace();
+        if (isNewList) {
+            try {
+                writer = new FileWriter(outputFile);
+                String json = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(movieList);
+                writer.write(json);
+                writer.close();
+            } catch (
+                    IOException e) {
+                e.printStackTrace();
+            }
+        } else {
+            try {
+                writer = new FileWriter(outputFile);
+                String json = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(formattedMovies);
+                writer.write(json);
+                writer.close();
+            } catch (
+                    IOException e) {
+                e.printStackTrace();
+            }
         }
-        logger.info("Application End");
+
+
+    }
+
+
+    public List<MovieDto> writeAllMoviesToFile() {
+        movies.forEach(m -> formattedMovies.add(transformer.transform(m)));
+        csvManager(ConfigManager.outputFileLocation(), false);
+
         return movies;
 
     }
 
-    public List<FormattedMovieDto> getSpecificMovieByTitle(String[] movieTitles) {
+    public List<FormattedMovieDto> getSpecificMovieByTitle(String fileLocation, String[] movieTitles) {
 
         movies.forEach(m -> formattedMovies.add(transformer.transform(m)));
 
-        outputFile = new File(ConfigManager.movieTitleFileLocation());
-        FileWriter writer;
-
-        List<FormattedMovieDto> specificMovie = new ArrayList<>();
 
         List<String> title = new ArrayList<>();
 
@@ -63,32 +73,20 @@ public class RetrieveData {
             for (String movieTitle : movieTitles
             ) {
                 if (formattedMovie.getTitle().equalsIgnoreCase(movieTitle) && !title.contains(movieTitle)) {
-                    specificMovie.add(formattedMovie);
+                    movieList.add(formattedMovie);
                     title.add(movieTitle);
-                    try {
-                        writer = new FileWriter(outputFile);
-                        String json = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(specificMovie);
-                        writer.write(json);
-                        writer.close();
-
-                    } catch (
-                            IOException e) {
-                        e.printStackTrace();
-                    }
+                    csvManager(fileLocation, true);
                 }
 
             }
 
-            logger.info("Application End");
-
-
 
         }
 
-        return specificMovie;
 
-
+        return movieList;
 
 
     }
 }
+

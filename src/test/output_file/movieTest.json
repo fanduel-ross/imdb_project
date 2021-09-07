@@ -1,0 +1,15 @@
+[ {
+  "id" : 6,
+  "title" : "Spider-Man 3",
+  "imdbRating" : 6.2,
+  "year" : 2007,
+  "duration" : 156,
+  "rating" : "PG-13",
+  "budget" : 258000000,
+  "genres" : [ "Action", "Adventure", "Romance" ],
+  "grossRevenue" : 336530303,
+  "director" : "Sam Raimi",
+  "actors" : [ "J.K. Simmons", "James Franco", "Kirsten Dunst" ],
+  "language" : "English",
+  "country" : "USA"
+} ]

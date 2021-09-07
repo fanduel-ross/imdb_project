@@ -36,6 +36,7 @@ public class MovieGenerator {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
+        logger.info("Application Ended");
 
         return movies;
     }
